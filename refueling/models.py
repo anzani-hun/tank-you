@@ -13,3 +13,5 @@ class Refuel(models.Model):
     petrol_amount_litre = models.PositiveIntegerField()
 
     refuel_date = models.DateTimeField()
+
+    
