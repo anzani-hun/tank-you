@@ -11,7 +11,7 @@ from django.contrib.auth.models import AnonymousUser
 @api_view(['GET'])
 def getRefuels(request):
     if not isinstance(request.user, AnonymousUser):
-        refuels = Refuel.objects.filter(user = request.user)
+        refuels = Refuel.objects.filter(user = request.user).order_by('-refuel_date')
         serialized = RefuelSerializer(refuels, many = True)
         return Response(serialized.data)
     return Response({'message':'User is undefined.'})
