@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Refuel
 from .serializers import RefuelSerializer
 
+
 from django.contrib.auth.models import AnonymousUser
 # Create your views here.
 
@@ -35,4 +36,21 @@ def getConsumption(request):
     consumption = (last.petrol_amount_litre/distance)*100
     
     return Response({'consumption': round(consumption, 1)})
+
+
+from django.shortcuts import redirect
+
+@api_view(['POST'])
+def saveNewRefuel(request):
+
+    refuel = Refuel()
+    refuel.user = request.user
+    refuel.distance = request.POST['distance']
+    refuel.petrol_amount_litre = request.POST['petrol_amount_litre']
+    refuel.refuel_date = request.POST['refuel_date']
+    refuel.save()
+    
+    return redirect('index')
+
+
     

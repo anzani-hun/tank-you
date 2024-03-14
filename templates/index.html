@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Hello Django - Fogyasztásmérő</h1>
+<h1>Hello {{ user }} - Ez egy fogyasztásmérő app</h1>
 
 <img src="/static/pictures/fuel.png" height="100" class="kep">
 
@@ -9,6 +9,24 @@
     <h1 id="consumption"></h1>
     <h5> l / 100 km </h5>
 </div>
+
+
+<form action="{% url 'new_refuel' %}" method="post">
+    {% csrf_token %}
+
+    <label for="km">óraállás: </label>
+    <input type="number" name="distance" id="km">
+
+    <label for="petrol">tankolt mennyiség</label>
+    <input type="number" name="petrol_amount_litre" id="petrol">L
+
+    <label for="date">tankolás időpontja</label>
+    <input type="datetime-local" name="refuel_date" id="date">
+
+    <input type="submit" value="Beküld">
+
+</form>
+<br>
 
 <div id="refuels"></div>
 
